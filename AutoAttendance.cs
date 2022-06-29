@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Remote;
 using SeleniumExtras.WaitHelpers;
 
 namespace ITECHAutoAttendance;
@@ -12,6 +13,7 @@ public class AutoAttendance
     
     private readonly TimeSpan _defaultTimeout = TimeSpan.FromSeconds(12);
     private readonly Configuration _configuration;
+    public string CronExpression => _configuration.CronExpression;
 
     public AutoAttendance()
     {
@@ -25,8 +27,9 @@ public class AutoAttendance
         {
             Run();
         }
-        catch
+        catch (Exception e)
         {
+            Console.WriteLine(e);
             Console.WriteLine($"[{DateTimeOffset.Now:O}] Failed to successfully attendance");
             return;
         }
@@ -64,7 +67,7 @@ public class AutoAttendance
         const string presentCheckboxFailed = $"{errorMessagePrefix} '{presentAsTextLiteral}' checkbox.";
         const string submitChangesFailed = $"{errorMessagePrefix} button with id '{submitChangesHtmlId}'.";
         
-        using (var driver = new ChromeDriver(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)))
+        using (var driver = GetWebDriver())
         {
             driver.Navigate().GoToUrl(loginUrl);
             
@@ -95,6 +98,16 @@ public class AutoAttendance
             var submitChangesElement = driver.PerformWithTimeout(ExpectedConditions.ElementIsVisible(By.Id(submitChangesHtmlId)), _defaultTimeout, submitChangesFailed);
             submitChangesElement.Click();
         }
+    }
+
+    private IWebDriver GetWebDriver()
+    {
+        if (_configuration.UseRemoteDriver)
+        {
+            return new RemoteWebDriver(new Uri(_configuration.RemoteDriverUrl!), new ChromeOptions());
+        }
+
+        return new ChromeDriver(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location));
     }
 
     private static Configuration LoadConfiguration()

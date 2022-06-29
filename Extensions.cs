@@ -18,7 +18,7 @@ public static class Extensions
         catch (Exception)
         {
             Console.WriteLine(new string('-', 50));
-            throw new Exception(errorMessage);
+            throw new TimeoutException(errorMessage);
         }
     }
 }
