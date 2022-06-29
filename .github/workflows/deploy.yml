@@ -1,0 +1,38 @@
+name: Deploy
+
+on:
+  push:
+    # Sequence of patterns matched against refs/heads
+    branches:
+      # Push events on stable branch
+      - stable
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Copy repository contents via scp
+        uses: appleboy/scp-action@master
+        env:
+          HOST: ${{ secrets.HOST }}
+          USERNAME: ${{ secrets.USERNAME }}
+          PORT: ${{ secrets.PORT }}
+          KEY: ${{ secrets.SSHKEY }}
+        with:
+          source: "."
+          target: "~/projects/ITECH-Auto-Attendance/"
+
+      - name: Executing remote command
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          USERNAME: ${{ secrets.USERNAME }}
+          PORT: ${{ secrets.PORT }}
+          KEY: ${{ secrets.SSHKEY }}
+          script: |
+            cd ~/projects/ITECH-Auto-Attendance
+            chmod +x ~/projects/ITECH-Auto-Attendance/start.sh
+            ~/projects/ITECH-Auto-Attendance/start.sh
