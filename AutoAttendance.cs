@@ -8,6 +8,8 @@ namespace ITECHAutoAttendance;
 
 public class AutoAttendance
 {
+    private const string PathToAppSettings = "./appsettings.json";
+    
     private readonly TimeSpan _defaultTimeout = TimeSpan.FromSeconds(12);
     private readonly Configuration _configuration;
 
@@ -15,8 +17,24 @@ public class AutoAttendance
     {
         _configuration = LoadConfiguration();
     }
+
+    public void Start()
+    {
+        Console.WriteLine($"[{DateTimeOffset.Now:O}] Started trying to attendance");
+        try
+        {
+            Run();
+        }
+        catch
+        {
+            Console.WriteLine($"[{DateTimeOffset.Now:O}] Failed to successfully attendance");
+            return;
+        }
+        
+        Console.WriteLine($"[{DateTimeOffset.Now:O}] Attended successfully");
+    }
     
-    public void Run()
+    private void Run()
     {
         string username = _configuration.Username;
         string password = _configuration.Password;
@@ -79,27 +97,13 @@ public class AutoAttendance
         }
     }
 
-    private static Configuration LoadConfigurationFromEnvironment()
+    private static Configuration LoadConfiguration()
     {
-        var username = Environment.GetEnvironmentVariable("login_username") ?? throw new ArgumentException("Username not was specified");
-        var password = Environment.GetEnvironmentVariable("login_password") ?? throw new ArgumentException("Password not was specified");
-        var attendanceBlockName = Environment.GetEnvironmentVariable("attendance_block_name") ?? throw new ArgumentException("Attendance block name not was specified");
-        
-        return new Configuration
+        if (File.Exists(PathToAppSettings))
         {
-            Username = username,
-            Password = password,
-            AttendanceBlockName = attendanceBlockName,
-        };
-    }
+            return JsonConvert.DeserializeObject<Configuration>(File.ReadAllText(PathToAppSettings));
+        }
 
-    private static Configuration? LoadConfigurationFromJson()
-    {
-        const string pathToAppSettings = "./appsettings.json";
-        return File.Exists(pathToAppSettings) 
-            ? JsonConvert.DeserializeObject<Configuration>(File.ReadAllText(pathToAppSettings))
-            : null;
+        throw new ArgumentException("appsettings.json missing.");
     }
-
-    private static Configuration LoadConfiguration() => LoadConfigurationFromJson() ?? LoadConfigurationFromEnvironment();
 }
