@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using ITECHAutoAttendance.Extensions;
 using Newtonsoft.Json;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
@@ -13,31 +14,13 @@ public class AutoAttendance
     
     private readonly TimeSpan _defaultTimeout = TimeSpan.FromSeconds(12);
     private readonly Configuration _configuration;
-    public string CronExpression => _configuration.CronExpression;
 
     public AutoAttendance()
     {
         _configuration = LoadConfiguration();
     }
 
-    public void Start()
-    {
-        Console.WriteLine($"[{DateTimeOffset.Now:O}] Started trying to attendance");
-        try
-        {
-            Run();
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine(e);
-            Console.WriteLine($"[{DateTimeOffset.Now:O}] Failed to successfully attendance");
-            return;
-        }
-        
-        Console.WriteLine($"[{DateTimeOffset.Now:O}] Attended successfully");
-    }
-    
-    private void Run()
+    public void Run()
     {
         string username = _configuration.Username;
         string password = _configuration.Password;

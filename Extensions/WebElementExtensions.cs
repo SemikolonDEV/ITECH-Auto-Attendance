@@ -1,9 +1,9 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 
-namespace ITECHAutoAttendance;
+namespace ITECHAutoAttendance.Extensions;
 
-public static class Extensions
+public static class WebElementExtensions
 {
     public static IWebElement PerformWithTimeout(this IWebDriver driver,
         Func<IWebDriver, IWebElement> conditions,
@@ -17,7 +17,6 @@ public static class Extensions
         }
         catch (Exception)
         {
-            Console.WriteLine(new string('-', 50));
             throw new TimeoutException(errorMessage);
         }
     }
