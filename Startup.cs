@@ -3,6 +3,7 @@ using ITECHAutoAttendance.Jobs;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Quartz;
+using Serilog;
 
 namespace ITECHAutoAttendance;
 
@@ -10,6 +11,10 @@ public static class Startup
 {
     public static IHostBuilder CreateHostBuilder() =>
         Host.CreateDefaultBuilder()
+            .UseSerilog((context, configuration) =>
+            {
+                configuration.WriteTo.Console();
+            })
             .ConfigureServices((context, services) =>
             {
                 services.AddSingleton<AutoAttendance>();
