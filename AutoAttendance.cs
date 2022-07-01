@@ -1,6 +1,5 @@
 ﻿using System.Reflection;
 using ITECHAutoAttendance.Extensions;
-using Newtonsoft.Json;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Remote;
@@ -15,9 +14,9 @@ public class AutoAttendance
     private readonly TimeSpan _defaultTimeout = TimeSpan.FromSeconds(12);
     private readonly Configuration _configuration;
 
-    public AutoAttendance()
+    public AutoAttendance(Configuration configuration)
     {
-        _configuration = LoadConfiguration();
+        _configuration = configuration;
     }
 
     public void Run()
@@ -97,15 +96,5 @@ public class AutoAttendance
         }
 
         return new ChromeDriver(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), options);
-    }
-
-    private static Configuration LoadConfiguration()
-    {
-        if (File.Exists(PathToAppSettings))
-        {
-            return JsonConvert.DeserializeObject<Configuration>(File.ReadAllText(PathToAppSettings));
-        }
-
-        throw new ArgumentException("appsettings.json missing.");
     }
 }
