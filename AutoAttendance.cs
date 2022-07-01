@@ -85,12 +85,18 @@ public class AutoAttendance
 
     private IWebDriver GetWebDriver()
     {
-        if (_configuration.UseRemoteDriver)
+        var options = new ChromeOptions();
+        if (_configuration.HideWindow)
         {
-            return new RemoteWebDriver(new Uri(_configuration.RemoteDriverUrl!), new ChromeOptions());
+            options.AddArgument("--headless");
         }
 
-        return new ChromeDriver(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location));
+        if (_configuration.UseRemoteDriver)
+        {
+            return new RemoteWebDriver(new Uri(_configuration.RemoteDriverUrl!), options);
+        }
+
+        return new ChromeDriver(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), options);
     }
 
     private static Configuration LoadConfiguration()
