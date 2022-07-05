@@ -34,7 +34,7 @@ https://user-images.githubusercontent.com/60587271/176958998-e385c5ad-0b81-4337-
 #### Installation
 1. Download the project build [here](https://github.com/SolomonRosemite/ITECH-Auto-Attendance/releases). (Or download and build the project yourself)
 2. Configure your appsettings.json. [See here](#Configuration) how to configure settings.
-3. Run the project (In the configuration you can set <code>HideWindow</code>
+3. Run the project by starting the <code>ITECH-Auto-Attendance.exe</code> (In the configuration you can set <code>HideWindow</code>
    to false to see if the program works as expected)
 
 # Configuration
