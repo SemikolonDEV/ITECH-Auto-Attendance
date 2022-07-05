@@ -17,7 +17,7 @@ https://user-images.githubusercontent.com/60587271/176958998-e385c5ad-0b81-4337-
 2. Pull and run selenium chrome standalone image (Required for the browser simulation)
    1. Pull the selenium image by running <code>docker pull selenium/standalone-chrome</code>
    2. Run the selenium image by running <code>docker run -d -p 4444:4444 --shm-size="1g" selenium/standalone-chrome:latest</code>
-   3. You can check if selenium is running by opening the browser at <server-ip>:4444
+   3. You can check if selenium is running by opening the browser at {server-ip}:4444
 3. Clone or download this git repo on your server
 4. Configure your appsettings.json. [See here](#Configuration) how to configure settings.
 5. Build an docker image by running <code>docker build -t itech-auto-attendance</code>
@@ -74,7 +74,7 @@ For editing and following along you can find the config in the appsettings.json.
 
 - RemoteDriverUrl
   - Specifies the remote web driver url. This will be required if you choose to run your program
-    on the server. This url should look something like this <code>"http://<server-ip>:4444/wd/hub"</code>
+    on the server. This url should look something like this <code>"http://{server-ip}:4444/wd/hub"</code>
 
 
 - UseRemoteDriver (defaults to: <code>false</code>)
