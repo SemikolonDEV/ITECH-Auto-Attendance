@@ -20,7 +20,7 @@ https://user-images.githubusercontent.com/60587271/176958998-e385c5ad-0b81-4337-
    3. You can check if selenium is running by opening the browser at {server-ip}:4444
 3. Clone or download this git repo on your server
 4. Configure your appsettings.json. [See here](#Configuration) how to configure settings.
-5. Build an docker image by running <code>docker build -t itech-auto-attendance</code>
+5. Build an docker image by running <code>docker build -t itech-auto-attendance .</code>
 6. Run the build docker image by running <code>docker run -it -d itech-auto-attendance</code>
 
 
