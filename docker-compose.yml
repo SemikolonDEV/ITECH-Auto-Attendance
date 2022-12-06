@@ -1,0 +1,14 @@
+version: "3.9"
+
+services:
+  app:
+    image: solomonrosemite/itech-auto-attendance:1.1
+    environment:
+      DOCKER: "Enabled"
+    depends_on:
+      - selenium
+    volumes:
+      - ./:/app/config
+
+  selenium:
+    image: selenium/standalone-chrome

@@ -1,4 +1,4 @@
-<p align="center">
+<p  align="center">
   <h1 align="center">Auto Attendance</h1>
   <p align="center">(Only relevant for ITECH students)<br/>An application that regularly inscribes school attendance</p>
 
@@ -14,15 +14,11 @@ https://user-images.githubusercontent.com/60587271/176958998-e385c5ad-0b81-4337-
 ## Installation with docker ⚙️(Recommended for server configuration)
 
 1. Install docker
-2. Pull and run selenium chrome standalone image (Required for the browser simulation)
-   1. Pull the selenium image by running <code>docker pull selenium/standalone-chrome</code>
-   2. Run the selenium image by running <code>docker run -d -p 4444:4444 --shm-size="1g" selenium/standalone-chrome:latest</code>
-   3. You can check if selenium is running by opening the browser at {server-ip}:4444
-3. Clone or download this git repo on your server
-4. Configure your appsettings.json. [See here](#Configuration) how to configure settings.
-5. Build an docker image by running <code>docker build -t itech-auto-attendance .</code>
-6. Run the build docker image by running <code>docker run -it -d itech-auto-attendance</code>
-
+1. Copy the ```docker-compose.yml``` and the ```appsettings.json``` from this repository to your server.
+1. Configure your appsettings.json. [See here](#Configuration) how to configure settings.
+(Keep in mind to set the ```UseRemoteDriver``` setting to ```true```)
+1. Start auto attendance by running ```docker compose up -d``` in the same directory as the ```docker-compose.yml```.
+(The argument ```-d``` starts the docker compose detached and is optional)
 
 ## Installation without docker ⚙️
 
@@ -72,9 +68,9 @@ For editing and following along you can find the config in the appsettings.json.
     By default the program never terminates.
 
 
-- RemoteDriverUrl
+- RemoteDriverUrl (defaults to: ```http://selenium:4444```)
   - Specifies the remote web driver url. This will be required if you choose to run your program
-    on the server. This url should look something like this <code>"http://{server-ip}:4444/wd/hub"</code>
+    on the server. This setting can be left to the default and will connect to the selenium container created by the docker compose.
 
 
 - UseRemoteDriver (defaults to: <code>false</code>)

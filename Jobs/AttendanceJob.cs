@@ -23,18 +23,19 @@ public class AttendanceJob : IJob
         _logger = logger;
     }
     
-    public Task Execute(IJobExecutionContext context)
+    public async Task Execute(IJobExecutionContext context)
     {
         if (context.CancellationToken.IsCancellationRequested)
-            return Task.CompletedTask;
+            return;
 
+        // Since selenium takes a while to start up when running in a docker container we give it wait 5 seconds... 
+        await Task.Delay(1000 * 5);
+        
         RunJob();
         if (_configuration.RunOnlyOnce)
         {
             _applicationLifetime.StopApplication();
         }
-
-        return Task.CompletedTask;
     }
 
     private void RunJob()
