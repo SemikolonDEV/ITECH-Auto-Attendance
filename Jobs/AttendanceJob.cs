@@ -61,7 +61,7 @@ public class AttendanceJob : IJob
         }
         catch (Exception e)
         {
-            _logger.LogError("Failed to successfully attend. See exception here: {@Error}", e);
+            _logger.LogError("Failed to successfully attend. See error message here: {@ErrorMessage}\n\nAnd full exception here {@Exception}", e.Message, e);
             wasSuccessful = false;
         }
 
