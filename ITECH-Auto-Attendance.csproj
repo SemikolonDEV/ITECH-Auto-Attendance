@@ -14,9 +14,8 @@
       <PackageReference Include="DotNetSeleniumExtras.WaitHelpers" Version="3.11.0" />
       <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.1" />
       <PackageReference Include="Quartz.Extensions.Hosting" Version="3.4.0" />
-      <PackageReference Include="Selenium.Firefox.WebDriver" Version="0.27.0" />
-      <PackageReference Include="Selenium.Support" Version="4.3.0" />
-      <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="103.0.5060.5300" />
+      <PackageReference Include="Selenium.Support" Version="4.7.0" />
+      <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="108.0.5359.7100" />
       <PackageReference Include="Serilog.AspNetCore" Version="5.0.0" />
     </ItemGroup>
 
