@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using ITECHAutoAttendance.Extensions;
+using ITECHAutoAttendance.Models;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Remote;
@@ -9,8 +10,6 @@ namespace ITECHAutoAttendance;
 
 public class AutoAttendance
 {
-    private const string PathToAppSettings = "./appsettings.json";
-    
     private readonly TimeSpan _defaultTimeout = TimeSpan.FromSeconds(12);
     private readonly Configuration _configuration;
 

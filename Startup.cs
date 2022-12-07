@@ -1,10 +1,13 @@
 ﻿using ITECHAutoAttendance.Extensions;
 using ITECHAutoAttendance.Jobs;
+using ITECHAutoAttendance.Models;
+using ITECHAutoAttendance.Sink;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Quartz;
 using Serilog;
+using Serilog.Events;
 
 namespace ITECHAutoAttendance;
 
@@ -24,6 +27,8 @@ public static class Startup
                 configuration.WriteTo.Console(
                     outputTemplate: SerilogOutputTemplate
                 );
+                
+                configuration.WriteTo.Sink(new CaptureLogsSink(), LogEventLevel.Information, null);
             })
             .ConfigureServices((context, services) =>
             {

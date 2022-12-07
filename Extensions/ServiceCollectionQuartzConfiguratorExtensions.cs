@@ -1,4 +1,5 @@
-﻿using Quartz;
+﻿using ITECHAutoAttendance.Models;
+using Quartz;
 
 namespace ITECHAutoAttendance.Extensions;
 

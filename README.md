@@ -76,3 +76,12 @@ For editing and following along you can find the config in the appsettings.json.
 - UseRemoteDriver (defaults to: <code>false</code>)
   - Defines if the program should use a remote web driver. This is also only relevant if you choose to run your program
     on the server. By default this is set to false.
+
+#### Notification configuration
+If enabled, auto attendance will send you a confirmation email with logs to let you know if it was able to successfully attend or not.
+
+- Enabled (defaults to: <code>false</code>)
+  - Defines if the program should send an email, notifying you the result.
+
+- (Required if enabled)
+  - The email address where auto attendance should send the mail to.
