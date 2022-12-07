@@ -45,6 +45,14 @@ public class AttendanceJob : IJob
     {
         var start = DateTimeOffset.Now;
         var wasSuccessful = true;
+
+        // Check if there are any lessons today.
+        if (!_configuration.RangeDatesToAttend.Any(dates => DateIsBetween(dates.First(), dates.Last(), DateTime.Now)))
+        {
+            _logger.LogInformation(
+                "Not trying to attend today because the current date is not in any datetime range or in other words, following to config auto attendance should not try to attend today because today there are no lessons.");
+            return;
+        }
         
         _logger.LogInformation("Started trying to attendance");
         try
@@ -121,4 +129,8 @@ public class AttendanceJob : IJob
 
         return (mailSubject, (wasSuccessful ? mailSuccessfulMessage : mailFailureMessage) + string.Join('\n', logs));
     }
+
+    private static bool DateIsBetween(DateTime start, DateTime end, DateTime currentDate)
+        // We add one day to the end date since on the last day there are still lessons.
+        => currentDate.Ticks > start.Ticks && currentDate.Ticks < end.Ticks + TimeSpan.FromDays(1).Ticks;
 }

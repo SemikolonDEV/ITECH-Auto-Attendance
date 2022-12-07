@@ -6,6 +6,7 @@ public class Configuration
     public string Password { get; init; }
     public string AttendanceBlockName { get; init; }
     public string CronExpression { get; init; }
+    public List<List<DateTime>> RangeDatesToAttend { get; init; }
     public bool HideWindow { get; init; }
     public string? RemoteDriverUrl { get; init; }
     public bool RunOnlyOnce { get; init; }

@@ -55,9 +55,11 @@ For editing and following along you can find the config in the appsettings.json.
   See example screenshot below...
   <img src="https://github.com/SolomonRosemite/ITECH-Auto-Attendance/blob/4313e5f0406c8118badc5833f8ab0e152e9cd4f3/example.png?raw=true">
 
-- CronExpression (defaults to: <code>"0 0 9 ? * *"</code>)
-  - Defines when the program should try to enroll attendance. By default it runs every day on 9 am.
+- CronExpression (defaults to: <code>"0 0 9 ? * mon-fri"</code>)
+  - Defines when the program should try to enroll attendance. By default it runs every week day on 9 am.
 
+- (Required if not in class IT 1j) RangeDatesToAttend (defaults to the IT 1j lessons schedule)
+  - Defines the date ranges from what to what date auto attendance should try to attend on. The predefined dates are for the class 'IT 1j'. Feel free to validate the dates for your class. See here: https://www.itech-bs14.de/bildungs-angebote/duale-berufsausbildung/informationstechnik/blockplanung-informationstechnik
 
 - HideWindow (defaults to: <code>true</code>)
   - Defines if the browser window should show. By default its hidden.
