@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
   app:
-    image: solomonrosemite/itech-auto-attendance:1.2.1
+    image: solomonrosemite/itech-auto-attendance:1.2.2
     environment:
       DOCKER: "Enabled"
     depends_on:
