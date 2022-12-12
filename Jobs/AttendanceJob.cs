@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using System.Net.Mail;
+using System.Text.RegularExpressions;
 using ITECHAutoAttendance.Models;
 using ITECHAutoAttendance.Sink;
 using Microsoft.Extensions.Hosting;
@@ -78,7 +79,7 @@ public class AttendanceJob : IJob
         
         try
         {
-            await SendMail(wasSuccessful, _configuration.Notification.Email, CaptureLogsSink.Logs.Where(e => e.Timestamp > start));
+            await SendMail(wasSuccessful, _configuration.Notification.EmailPassword, _configuration.Notification.SmtpHost, _configuration.Notification.Email, CaptureLogsSink.Logs.Where(e => e.Timestamp > start));
             _logger.LogInformation("Successfully send confirmation mail");
         }
         catch (Exception e)
@@ -87,17 +88,13 @@ public class AttendanceJob : IJob
         }
     }
 
-    private static async Task SendMail(bool wasSuccessful, string recipientEmailAddress, IEnumerable<LogEvent> events)
+    private static async Task SendMail(bool wasSuccessful, string password, string smtpHost, string recipientEmailAddress, IEnumerable<LogEvent> events)
     {
         var (subject, body) = ConstructMailMessage(wasSuccessful, events);
 
-        // These credentials are shared. Thus please dont misuse them. Makes it easier for everyone.
-        const string fromMail = "itechautoattendance.notifier@gmail.com";
-        const string fromPassword = "msqrklybrwexrehr";
-
         var message = new MailMessage
         {
-            From = new MailAddress(fromMail, "ITECH Auto-Attendance"),
+            From = new MailAddress(recipientEmailAddress, "ITECH Auto-Attendance"),
             Priority = MailPriority.Normal,
             Subject = subject,
             Body = body,
@@ -105,11 +102,15 @@ public class AttendanceJob : IJob
         };
 
         message.To.Add(new MailAddress(recipientEmailAddress));
-        
-        var smtpClient = new SmtpClient("smtp.gmail.com")
+
+        var smtpRegex = Regex.Match(smtpHost, "(?<host>.+):(?<port>[0-9]+)");
+
+        var host = smtpRegex.Groups["host"].Value;
+        var smtpPort = int.Parse(smtpRegex.Groups["port"].Value);
+
+        var smtpClient = new SmtpClient(host, smtpPort)
         {
-            Port = 587, 
-            Credentials = new NetworkCredential(fromMail, fromPassword),
+            Credentials = new NetworkCredential(recipientEmailAddress, password),
             EnableSsl = true,
         };
 

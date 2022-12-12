@@ -4,7 +4,8 @@ public class Configuration
 {
     public string Username { get; init; }
     public string Password { get; init; }
-    public string AttendanceBlockName { get; init; }
+    public string ClassCourseLink { get; init; }
+    public string AttendanceName { get; init; }
     public string CronExpression { get; init; }
     public List<List<DateTime>> RangeDatesToAttend { get; init; }
     public bool HideWindow { get; init; }
@@ -25,5 +26,11 @@ public class NotificationConfiguration
         set => _enabled = value;
     }
 
-    public string? Email { get; set; }
+    public string? Email { get; init; }
+
+    public string SmtpHost { get; init; }
+    public string EmailPassword { get; init; }
+
+    
+
 }
