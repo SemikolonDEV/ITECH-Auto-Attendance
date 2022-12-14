@@ -45,12 +45,14 @@ For editing and following along you can find the config in the appsettings.json.
   - This is needed for authenticating the user and to enroll attendance.
 
 
-- (Required) AttendanceBlockName
-  - The name of the current block.
-  - This is needed for [selenium](https://www.selenium.dev/) to find and attendance for the right block
-  - You can find the current block name by viewing the class course
-    [or click here](https://moodle.itech-bs14.de/course/view.php?id=1570) and copying the name of the attendance
-    link.
+- (Required) ClassCouresLink
+  - The Link of the Moodle Course where the Attendance is.
+
+- (Required) AttendanceName
+  - The name of the Attandance in the Course.
+  - This is needed for [selenium](https://www.selenium.dev/) to find and the right attendance 
+  - You can find the Attendance name by viewing the Moodle course
+    and copying the name of the attendance link.
 
   See example screenshot below...
   <img src="https://github.com/SolomonRosemite/ITECH-Auto-Attendance/blob/4313e5f0406c8118badc5833f8ab0e152e9cd4f3/example.png?raw=true">
@@ -85,5 +87,11 @@ If enabled, auto attendance will send you a confirmation email with logs to let 
 - Enabled (defaults to: <code>false</code>)
   - Defines if the program should send an email, notifying you the result.
 
-- (Required if enabled)
+- (Required if enabled) Email
   - The email address where auto attendance should send the mail to.
+
+- (Required if enabled) EmailPassword
+  - The email password where auto attendance should send the mail to.
+
+- (Required if enabled) SmtpHost
+  - The Smtp host address for the smtp server from the mail above.
