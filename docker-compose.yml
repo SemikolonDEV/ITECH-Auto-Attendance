@@ -2,13 +2,14 @@ version: "3.9"
 
 services:
   app:
-    image: solomonrosemite/itech-auto-attendance:1.2.2
+    image: semikolondev/itech-auto-attendance:1.0.0
     environment:
       DOCKER: "Enabled"
     depends_on:
       - selenium
     volumes:
-      - ./:/app/config
+      - appsetting.json/:/app/config/appsettings.json
 
   selenium:
     image: selenium/standalone-chrome
+    shm_size: "2g"
